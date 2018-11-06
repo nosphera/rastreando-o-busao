@@ -1,4 +1,4 @@
-package com.rastreandobusao;
+package com.linhasonibus;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "rastreandobusao";
+        return "linhasonibus";
     }
 }
