@@ -27,4 +27,4 @@ inicie o emulador ou conecte o celular;
 execute "react-native run-android" ou "react-native run-ios"
 
 apk Assinado para download e testes em ANDROID: 
-<a href="http://easybudget.com.br/LinhasOnibus.zip">LinhasOnibus.zip</a>
+<a href="https://drive.google.com/open?id=1-yKbtaKsQ9ZAI2LYE76Xbj6WOXGO_AgP">LinhasOnibus.apk</a>
