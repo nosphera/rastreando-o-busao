@@ -84,7 +84,7 @@ export default class ListarLinhas extends Component {
             data={this.state.listalinhas}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => <ItemListaLinhasOnibus 
-                                                onPress={()=>{ this.props.navigation.navigate('DetalhesLinha', {linhaOnibus: item,});}} 
+                                                onPress={()=>{ (item.veiculos.length>0?this.props.navigation.navigate('DetalhesLinha', {linhaOnibus: item,}):Alert.alert("Atenção", 'Esta linha não possui veículos.'))}} 
                                                 index={index} 
                                                 linha={item} /> }
             />

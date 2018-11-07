@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    ActivityIndicator 
+    ActivityIndicator ,
+    Image
 } from 'react-native';
+import Styles from '../styles';
 
 export default class Splash extends Component {
 
@@ -13,9 +15,14 @@ export default class Splash extends Component {
 
     render(){
         return(
-        <View backgroundColor='green' flex={1}>
-            <Text>Go Horse</Text> 
-            <ActivityIndicator/>
+        <View style={Styles.container} flexDirection='column' backgroundColor='white'>
+            <Image         
+                style={{width:"100%"}}
+                resizeMode="contain"
+                resizeMethod="resize"
+                source={require('../images/logo_dnit.png')}
+            />
+            <ActivityIndicator size={30} opacity={0.5}/>
         </View>
         );
     }

@@ -18,7 +18,10 @@ export default createStackNavigator({
       },
     },
     splash: {
-      screen: Splash
+      screen: Splash,
+        navigationOptions: {
+            headerVisible: false,
+        }    
     }
   }, {
     initialRouteName: 'Home',
