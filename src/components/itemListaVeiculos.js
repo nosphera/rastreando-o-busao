@@ -11,7 +11,8 @@ const ItemListaVeiculos = (props)=>
 <TouchableOpacity onPress={props.onPress}>
     <View padding={15} margin={5} backgroundColor={'#CCC'} borderRadius={10} style={Styles.container} justifyContent='flex-start'>
         <Icon name="directions-bus" color="#ccc" size={40} marginRight={30} color={'orange'}/>
-        <Text backgroundColor='red'>{props.item.ordem} </Text>
+        <Text>{props.item.ordem}</Text>
+        <Text>{props.item.position.latitude}</Text>
     </View>
 </TouchableOpacity>
 ;

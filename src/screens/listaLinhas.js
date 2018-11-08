@@ -2,14 +2,28 @@ import React, {Component} from 'react';
 import {
     Alert,
     View,
-    Text,
+    TouchableOpacity,
     FlatList,
-    ActivityIndicator 
+    ActivityIndicator ,
+    AsyncStorage
 } from 'react-native';
 import Styles from '../styles';
-import ItemListaLinhasOnibus from '../components/itemListaLinhasOnibus.js'
+import ItemListaLinhasOnibus from '../components/itemListaLinhasOnibus.js';
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+var atualizarLista={};
 
 export default class ListarLinhas extends Component {
+    static navigationOptions= {
+        title: 'Listar Linhas de Onibus',
+        headerRight: (
+          <TouchableOpacity onPress={()=>{atualizarLista()}}>
+            <View width={50}>
+              <Icon name="cached" size={30} color={'#3AF'}/>
+            </View>
+          </TouchableOpacity>
+        ),
+      }
 
     constructor(props){
         super(props);
@@ -20,9 +34,24 @@ export default class ListarLinhas extends Component {
             listalinhas:[],
             loading:true,
         }
+        atualizarLista = this._refreshBotaoLista.bind(this);
+        this._atualizaLinha = this._atualizaLinha.bind(this);
     }
 
-    componentDidMount = ()=>{
+    _refreshBotaoLista = ()=>{
+        if(!this.state.loading){
+            this.linhas=[];
+            this.setState({listalinhas:[],loading:true,},()=>{this._fetchLinhasOnibus()});
+        }
+    }
+
+    componentDidMount = ()=>{        
+        AsyncStorage.getItem('linhas', (error, result)=>{
+            if(result){               
+                this.linhas = JSON.parse(result);
+                this.setState({listalinhas:this.linhas, loading:false});
+            }
+        });
         this._fetchLinhasOnibus();
     }
 
@@ -50,23 +79,25 @@ export default class ListarLinhas extends Component {
 
                     for(let y=1;y<tmpVeiculos.length;y++){
                         if(tmpVeiculos[i]){
-                            ObjLinha.veiculos.push({
-                                datahora: tmpVeiculos[y][0] ,
+                            ObjLinha.veiculos.push({                                
                                 ordem: tmpVeiculos[y][1],
                                 linha:tmpVeiculos[y][2],
-                                latitude: tmpVeiculos[y][3],
-                                longitude: tmpVeiculos[y][4],
-                                velocidade: tmpVeiculos[y][5],
-                                direcao: tmpVeiculos[y][6],
+                                position:[{
+                                    datahora: tmpVeiculos[y][0] ,
+                                    latitude: tmpVeiculos[y][3],
+                                    longitude: tmpVeiculos[y][4],                                    
+                                    velocidade: tmpVeiculos[y][5],
+                                    direcao: tmpVeiculos[y][6],
+                                }],
                             });    
                         }
                     }
-                    console.log(JSON.stringify(ObjLinha));
+                    //console.log(JSON.stringify(ObjLinha));
                     this.linhas.push(ObjLinha);
                 }
             }           
 
-            this.setState({listalinhas:this.linhas, loading:false})    ;
+            this._gravarLinhas();
         })
         .catch((error) =>{
             console.log('Erro ao listar as linhas de onibus: ', JSON.stringify(error));
@@ -74,17 +105,30 @@ export default class ListarLinhas extends Component {
         )
     }
 
-    render(){
+    _atualizaLinha(_linha){
+        let posLinha = this.linhas.findIndex(val => val.linha == _linha.linha ) ;
+        if(posLinha > -1){
+            this.linhas[posLinha] = _linha;      
+            this._gravarLinhas();      
+        }
+    }
 
+    _gravarLinhas = () =>{
+        this.setState({listalinhas:this.linhas, loading:false},()=>{
+            AsyncStorage.setItem('linhas', JSON.stringify(this.linhas));
+        });
+    }
+    render(){
+        let _listaLinhas = this.state.listalinhas.filter(x=>x.veiculos.length > 0);
         return(
         <View style={Styles.container}>
             {this.state.loading && <ActivityIndicator size={100}/>}
             {!this.state.loading &&
             <FlatList width="100%" height="100%" 
-            data={this.state.listalinhas}
+            data={_listaLinhas}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => <ItemListaLinhasOnibus 
-                                                onPress={()=>{ this.props.navigation.navigate('DetalhesLinha', {linhaOnibus: item,});}} 
+                                                onPress={()=>{ this.props.navigation.navigate('DetalhesLinha', {linhaOnibus: item, atualizaCallback:this._atualizaLinha});}} 
                                                 index={index} 
                                                 linha={item} /> }
             />
