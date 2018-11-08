@@ -4,9 +4,9 @@ Screens
 
 <table>
 <tr>
-  <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot1.jpeg" style="widht:30%;"/></td>
-  <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot2.jpeg" style="widht:30%;"/></td>
-  <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot3.jpeg" style="widht:30%;"/></td>
+  <td style="widht:30%;"><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot1.jpeg" /></td>
+  <td style="widht:30%;"><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot2.jpeg" /></td>
+  <td style="widht:30%;"><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot3.jpeg" /></td>
 <tr>
 <tr/>
 </table>
