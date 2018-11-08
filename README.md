@@ -1,7 +1,10 @@
 # rastreando-o-busao
-Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar e atualizar o cadastros de linhas de onibus.
-Screens
+Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar e atualizar o cadastros de linhas de onibus. Ela consome os dados abertos do transporte público do Rio de Janeiro / Brasil.
 
+A documentação do serviço está disponível em:
+http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gps.pdf
+
+<h1>Screens</h1>
 <table>
   <tr>
     <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot1.jpeg" /></td>
