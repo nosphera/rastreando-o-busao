@@ -66,36 +66,28 @@ export default class ListarLinhas extends Component {
         })
         .then((response)=>{ 
             let responseJson = JSON.parse(response._bodyText).DATA;
-            this.linhas = [];
-            let linhasBuffer = responseJson.filter(x => x[2] != "");
+            this.linhas = responseJson.filter(x => x[2] != "").map((buffer)=>{
+                if(!(this.linhas.findIndex(val => val.linha == buffer[2]) > -1))   {
+                    let _veiculos = responseJson.filter(x => x[2] == linhasBuffer[i][2]).map((reg) => {return({                               
+                            ordem: reg[1],
+                            linha:reg[2],
+                            position:[{
+                                datahora: reg[0] ,
+                                latitude: reg[3],
+                                longitude: reg[4],                                    
+                                velocidade: reg[5],
+                                direcao: reg[6],
+                            }],
+                        });
+                    });
 
-            for(let i=0;i<linhasBuffer.length;i++){
-                if(!(this.linhas.findIndex(val => val.linha == linhasBuffer[i][2]) > -1))   {
-                    let ObjLinha = {
-                        index:i, 
-                        linha:linhasBuffer[i][2],
-                        veiculos: [],
-                    }
-                    let tmpVeiculos =responseJson.filter(x => x[2] == linhasBuffer[i][2]);
-
-                    for(let y=1;y<tmpVeiculos.length;y++){
-                        if(tmpVeiculos[i]){
-                            ObjLinha.veiculos.push({                                
-                                ordem: tmpVeiculos[y][1],
-                                linha:tmpVeiculos[y][2],
-                                position:[{
-                                    datahora: tmpVeiculos[y][0] ,
-                                    latitude: tmpVeiculos[y][3],
-                                    longitude: tmpVeiculos[y][4],                                    
-                                    velocidade: tmpVeiculos[y][5],
-                                    direcao: tmpVeiculos[y][6],
-                                }],
-                            });    
-                        }
-                    }
-                    this.linhas.push(ObjLinha);
-                }
-            }    
+                    return {
+                            index:i, 
+                            linha:linhasBuffer[i][2],
+                            veiculos: _veiculos,
+                        };                    
+                }   
+            }) 
             this._gravarLinhas();
         })
         .catch((error) =>{
