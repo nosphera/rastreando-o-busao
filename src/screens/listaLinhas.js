@@ -27,11 +27,9 @@ export default class ListarLinhas extends Component {
 
     constructor(props){
         super(props);
-
         this.linhas=[];
-
         this.state={            
-            listalinhas:[],
+            listalinhas:this.linhas,
             loading:true,
         }
         atualizarLista = this._refreshBotaoLista.bind(this);
@@ -44,6 +42,10 @@ export default class ListarLinhas extends Component {
             this.linhas=[];
             this.setState({listalinhas:[],loading:true,},()=>{this._fetchLinhasOnibus()});
         }
+    }
+
+    componentWillUnmount = ()=>{
+        this.props.screenProps.Emitter.off('atualizaLinha', this._atualizaLinha);
     }
 
     componentDidMount = ()=>{        
@@ -71,7 +73,7 @@ export default class ListarLinhas extends Component {
 
             for(let i=0;i<linhasBuffer.length;i++){
                 if(!(this.linhas.findIndex(val => val.linha == linhasBuffer[i][2]) > -1))   {
-                    let _veiculos = responseJson.filter(x => x[2] == linhasBuffer[i][2]).map((reg) => {return({                               
+                    let _veiculos = linhasBuffer.filter(x => x[2] == linhasBuffer[i][2]).map((reg) => {return({                               
                             ordem: reg[1],
                             linha:reg[2],
                             position:[{
@@ -84,11 +86,11 @@ export default class ListarLinhas extends Component {
                         });
                     });
 
-                    let ObjLinha = {
-                        index:i, 
-                        linha:linhasBuffer[i][2],
-                        veiculos: _veiculos, 
-                        }
+                    let ObjLinha ={ 
+                                    index:i, 
+                                    linha:linhasBuffer[i][2],
+                                    veiculos: _veiculos, 
+                                  }
                         
                     this.linhas.push(ObjLinha);
                 }
@@ -109,9 +111,8 @@ export default class ListarLinhas extends Component {
     }
 
     _gravarLinhas = () =>{
-        this.setState({listalinhas:this.linhas, loading:false},()=>{
-            AsyncStorage.setItem('linhas', JSON.stringify(this.linhas));
-        });
+        AsyncStorage.setItem('linhas', JSON.stringify(this.linhas));
+        this.setState({listalinhas:this.linhas, loading:false});
     }
     render(){
         let _listaLinhas = this.state.listalinhas.filter(x=> x && x.veiculos.length > 0);

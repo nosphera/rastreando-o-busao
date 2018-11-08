@@ -19,6 +19,7 @@ export default class DetalheLinhaOnibus extends Component {
     }
     
     componentWillUnmount = ()=>{
+        this.props.screenProps.Emitter.off('atualizaVeiculo', this._atualizaVeiculo);
         this.props.screenProps.Emitter.emit('atualizaLinha', this.state.linha);
     }
 

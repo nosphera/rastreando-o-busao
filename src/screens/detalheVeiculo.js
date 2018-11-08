@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import {WebView , ActivityIndicator, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import Geocoder from 'react-native-geocoder';
-
-const API_KEY = 'AIzaSyCNytZjzJnjQXrNEPY_cEj-_yVKiB7S8yY';
-Geocoder.fallbackToGoogle(API_KEY);
 
 var atualizarPosicao={};
 
@@ -27,8 +23,7 @@ export default class DetalheVeiculo extends Component {
         veiculo:  _veiculo,
         loading:true,
         urlMapa:'',  
-      }  
-    this._ajustaUrlMapa(_veiculo);
+      }      
     atualizarPosicao = this._btnAtualizarPosicaoHandler.bind(this);   
   }
 
@@ -41,30 +36,31 @@ export default class DetalheVeiculo extends Component {
       let posicaoAtual={
         lat: _veiculo.position[_veiculo.position.length - 1].latitude||0,
         lng: _veiculo.position[_veiculo.position.length - 1].longitude||0,
-      }
-  
-      Geocoder.geocodePosition(posicaoAtual).then(res => {
-          let _uri = 'https://www.google.com/maps/search/?api=1&key='+API_KEY+'&query='+res[0].formattedAddress.replace(/\s/g, "+");
-          console.log(_uri);
-          this.setState({urlMapa: {uri: _uri},loading:false, veiculo:_veiculo});
-      });
+      } 
+      
+      let _uri = 'https://www.google.com/maps/search/?api=1&query='+posicaoAtual.lat+'%2C'+posicaoAtual.lng;
+      console.log(_uri);
+      this.setState({urlMapa: {uri: _uri},loading:false, veiculo:_veiculo});
+            
     }else{
       this.setState({loading:false});
     }
   }
   componentDidMount = ()=>{   
-    this.timer = setInterval(()=>{if(this.mounted){this._atualizarCoordenada()}},60000); 
+    this.mounted = true;
+    this.timer = setInterval(()=>{if(this.mounted){this._atualizarCoordenada()}},30000); 
+    this._ajustaUrlMapa(this.state.veiculo);
     this._atualizarCoordenada();
   }
 
   componentWillUnmount = async()=>{
+    this.mounted = false;
     this.props.screenProps.Emitter.emit('atualizaVeiculo', this.state.veiculo);
     clearInterval(this.timer);
   }
 
   _atualizarCoordenada = ()=>{
-    return this.setState({loading:true}, ()=>{
-      fetch('http://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDoOnibus/'+this.state.veiculo.ordem.toString(),{
+    return fetch('http://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDoOnibus/'+this.state.veiculo.ordem.toString(),{
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -93,7 +89,6 @@ export default class DetalheVeiculo extends Component {
         .catch((error)=>{
           console.log(error);
         });
-    });
   }
 
   render() {
