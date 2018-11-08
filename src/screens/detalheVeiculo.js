@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {WebView , ActivityIndicator, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Geocoder from 'react-native-geocoder';
-import Styles from '../styles';
 
 const API_KEY = 'AIzaSyCNytZjzJnjQXrNEPY_cEj-_yVKiB7S8yY';
 Geocoder.fallbackToGoogle(API_KEY);
@@ -11,7 +10,7 @@ var atualizarPosicao={};
 
 export default class DetalheVeiculo extends Component {
   static navigationOptions= {
-    title: 'Listar Linhas de Onibus',
+    title: 'Posição do Veículo',
     headerRight: (
       <TouchableOpacity onPress={()=>{atualizarPosicao()}}>
         <View width={50}>
@@ -54,7 +53,7 @@ export default class DetalheVeiculo extends Component {
     }
   }
   componentDidMount = ()=>{   
-    this.timer = setInterval(()=>{if(this.mounted){this._atualizarCoordenada()}},6000); 
+    this.timer = setInterval(()=>{if(this.mounted){this._atualizarCoordenada()}},60000); 
     this._atualizarCoordenada();
   }
 

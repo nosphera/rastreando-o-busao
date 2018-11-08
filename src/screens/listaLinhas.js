@@ -66,8 +66,11 @@ export default class ListarLinhas extends Component {
         })
         .then((response)=>{ 
             let responseJson = JSON.parse(response._bodyText).DATA;
-            this.linhas = responseJson.filter(x => x[2] != "").map((buffer)=>{
-                if(!(this.linhas.findIndex(val => val.linha == buffer[2]) > -1))   {
+            this.linhas = [];
+            let linhasBuffer = responseJson.filter(x => x[2] != "");
+
+            for(let i=0;i<linhasBuffer.length;i++){
+                if(!(this.linhas.findIndex(val => val.linha == linhasBuffer[i][2]) > -1))   {
                     let _veiculos = responseJson.filter(x => x[2] == linhasBuffer[i][2]).map((reg) => {return({                               
                             ordem: reg[1],
                             linha:reg[2],
@@ -81,13 +84,15 @@ export default class ListarLinhas extends Component {
                         });
                     });
 
-                    return {
-                            index:i, 
-                            linha:linhasBuffer[i][2],
-                            veiculos: _veiculos,
-                        };                    
-                }   
-            }) 
+                    let ObjLinha = {
+                        index:i, 
+                        linha:linhasBuffer[i][2],
+                        veiculos: _veiculos, 
+                        }
+                        
+                    this.linhas.push(ObjLinha);
+                }
+            }    
             this._gravarLinhas();
         })
         .catch((error) =>{
@@ -109,7 +114,7 @@ export default class ListarLinhas extends Component {
         });
     }
     render(){
-        let _listaLinhas = this.state.listalinhas.filter(x=>x.veiculos.length > 0);
+        let _listaLinhas = this.state.listalinhas.filter(x=> x && x.veiculos.length > 0);
         return(
         <View style={Styles.container}>
             {this.state.loading && <ActivityIndicator size={100}/>}

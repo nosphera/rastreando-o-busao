@@ -17,9 +17,6 @@ export default createStackNavigator({
     },
     DetalhesVeiculo: {
       screen: DetalheVeiculos,
-      navigationOptions: {
-        title: 'Posição do Veículo',
-      },
     },
     splash: {
       screen: Splash,
