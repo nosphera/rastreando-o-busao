@@ -1,5 +1,5 @@
 # rastreando-o-busao
-Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar visualizar os veiculos ativeo em determinada linha de onibus. Ela utiliza os dados abertos de transporte público do Rio de Janeiro / Brasil.
+Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar visualizar os veiculos ativos em determinada linha de onibus. Ela utiliza os dados abertos de transporte público do Rio de Janeiro / Brasil.
 
 A documentação do serviço está disponível em:
 http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gps.pdf
