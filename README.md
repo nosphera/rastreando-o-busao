@@ -1,5 +1,5 @@
 # rastreando-o-busao
-Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar e atualizar o cadastros de linhas de onibus. Ela consome os dados abertos do transporte público do Rio de Janeiro / Brasil.
+Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar visualizar os veiculos ativeo em determinada linha de onibus. Ela utiliza os dados abertos de transporte público do Rio de Janeiro / Brasil.
 
 A documentação do serviço está disponível em:
 http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gps.pdf
@@ -28,11 +28,7 @@ http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gp
 
 
 <h3>Android SDK 26 (para rodar no android):</h3>
-<p> Certifique- que você possui o SDK do android instalado co o build tools acima da versão 26, o Emulador do Android é instalado juntamente. Você pode utilizar outro emulador, como o Genymotion.</p>
-
-
-<h3>XCode (para rodar no Mac / IOS)</h3>
-<p>Certifique-se que você possui o xcode instalado, o emulador do IOS é habilitado juntamente com ele</p>
+<p> Certifique-se que você possui o SDK do android instalado, com o build tools acima da versão 26. O Emulador do Android é instalado juntamente, mas precisa ser ativado através do "Androi Virtual Device Mannager" (AVD Mannager). Você pode utilizar outro emulador, como o Genymotion se preferir.</p>
 
 
 <h3>Baixe os Fontes</h3>
@@ -48,7 +44,7 @@ http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gp
 
 
 <h3>Execute a aplicação</h3>
-<p> No Terminal aberto, navegue até o diretório onde estão os fontes e execute "react-native run-android" ou "react-native run-ios" de acordo com a plataforma que você escolheu.</p>
+<p> No Terminal aberto, navegue até o diretório onde estão os fontes e execute "react-native run-android".</p>
 
 
 <h4>apk Assinado para download e testes em ANDROID: 
