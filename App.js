@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Router from './src/routes.js';
 import Splash from './src/screens/splash.js';
-
+const Emitter= require('tiny-emitter/instance');
 
 export default class App extends Component {
 
@@ -12,19 +12,14 @@ export default class App extends Component {
     }
   }
   componentDidMount=()=>{
-    setTimeout(this._sairDoSplash.bind(this), 2000);
+    setTimeout(this._sairDoSplash.bind(this), 1000);
   }
   _sairDoSplash=()=>{
       this.setState({loaded:true})
   }
 
   render() {
-    if(!this.state.loaded){
-      return( <Splash/>);
-    }
-    return (
-      <Router/>
-    );
+    return ((this.state.loaded?<Router screenProps={{Emitter}}/>:<Splash/>));
   }
 }
 
