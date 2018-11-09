@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {createStackNavigator } from 'react-navigation';
 import Splash from './screens/splash.js';
-import ListaLinhas from './screens/listaLinhas.js';
+import BusLinesList from './screens/busLinesList.js';
 import DetalhesLinhaOnibus from './screens/detalheLinhaOnibus.js';
 import DetalheVeiculos from './screens/detalheVeiculo';
 
 export default createStackNavigator({
     Home: {
-      screen: ListaLinhas,      
+      screen: BusLinesList,      
     },
     DetalhesLinha: {
       screen: DetalhesLinhaOnibus,

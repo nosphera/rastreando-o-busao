@@ -16,13 +16,12 @@ export default class Splash extends Component {
     render(){
         return(
         <View style={Styles.container} flexDirection='column' backgroundColor='white'>
+            <ActivityIndicator size={30} opacity={0.5} />
             <Image         
-                style={{width:"100%"}}
+                style={{width:"70%"}}
                 resizeMode="contain"
-                resizeMethod="resize"
-                source={require('../images/logo_dnit.png')}
+                source={require('../images/logo_rjbus.png')}
             />
-            <ActivityIndicator size={30} opacity={0.5}/>
         </View>
         );
     }

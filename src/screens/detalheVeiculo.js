@@ -5,16 +5,18 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 var atualizarPosicao={};
 
 export default class DetalheVeiculo extends Component {
-  static navigationOptions= {
-    title: 'Posição do Veículo',
-    headerRight: (
-      <TouchableOpacity onPress={()=>{atualizarPosicao()}}>
-        <View width={50}>
-          <Icon name="cached"  size={30} color={'#3AF'}/>
-        </View>
-      </TouchableOpacity>
-    ),
-  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Veículo '+navigation.getParam('veicleId', 'Posição'),
+      headerRight: (
+        <TouchableOpacity onPress={()=>{atualizarPosicao()}}>
+          <View width={50}>
+            <Icon name="cached"  size={30} color={'#3AF'}/>
+          </View>
+        </TouchableOpacity>
+      ),
+    };
+  };
 
   constructor(props) {
     super(props);

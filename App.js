@@ -10,16 +10,17 @@ export default class App extends Component {
     this.state={
       loaded:false,
     }
+    this._sairDoSplash = this._sairDoSplash.bind(this);
   }
   componentDidMount=()=>{
-    setTimeout(this._sairDoSplash.bind(this), 1000);
+    setTimeout(this._sairDoSplash, 3000);
   }
   _sairDoSplash=()=>{
       this.setState({loaded:true})
   }
 
   render() {
-    return ((this.state.loaded?<Router screenProps={{Emitter}}/>:<Splash/>));
+    return ((!this.state.loaded?<Splash/>:<Router screenProps={{Emitter}}/>));
   }
 }
 

@@ -1,4 +1,4 @@
-package com.linhasonibus;
+package com.rjbus;
 
 import android.app.Application;
 

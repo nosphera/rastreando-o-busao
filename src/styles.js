@@ -19,6 +19,15 @@ const Styles = StyleSheet.create({
       color: '#333333',
       marginBottom: 5,
     },
+    smallText:{
+      fontSize:10,
+    },
+    listItemTitle:{
+      fontSize:25,
+    },
+    listItemTitleXLarge:{
+      fontSize:50,
+    },
   });
 
   export default Styles;
