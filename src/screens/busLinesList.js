@@ -42,21 +42,19 @@ export default class ListarLinhas extends Component {
     }
 
     componentDidMount = ()=>{        
+        this._fetchBusLinesList();
         AsyncStorage.getItem('linhas', (error, result)=>{
-            if(result){               
-                this.linhas = JSON.parse(result);
-                this.setState({listalinhas:this.linhas, loading:false});
+            if(result && result !=''){               
+                this.setState({listalinhas:JSON.parse(result), loading:false});
             }
         });
-        this._fetchBusLinesList();
     }
 
     _fetchBusLinesList = function (){
-        debugger;
         return fetchDados() 
         .then(filtraLinhas)
         .then(processaLinhas)
-        .then(this._gravarLinhas)
+        .then((result)=>{this._gravarLinhas(result)})
         .catch((error) =>{
             console.log('Erro ao listar as linhas de onibus: ', JSON.stringify(error));
         });
@@ -72,11 +70,11 @@ export default class ListarLinhas extends Component {
 
         function filtraLinhas(response) {
             let responseJson = JSON.parse(response._bodyText).DATA;
-            this.linhas = [];
             return new Promise(resolve => resolve(responseJson.filter(x => x[2] != "")));
         }
 
-        function processaLinhas(linhas) {
+        function processaLinhas(linhas) {            
+            this.linhas = [];
             return new Promise((resolve, reject) => {
                 linhas.forEach(linha => {
                     if(!(this.linhas.findIndex(val => val.linha == linha[2]) > -1))   {
@@ -117,8 +115,9 @@ export default class ListarLinhas extends Component {
     }
 
     _gravarLinhas = (_linhas) =>{
-        this.setState({listalinhas:this.linhas, loading:false});
-        AsyncStorage.setItem('linhas', JSON.stringify(_linhas));
+        this.setState({listalinhas:_linhas}, ()=>{
+            AsyncStorage.setItem('linhas', JSON.stringify(_linhas), ()=>{this.setState({loading:false})});
+        });
     }
     render(){
         let _listaLinhas = this.state.listalinhas.filter(x=> x && x.veiculos.length > 0);
