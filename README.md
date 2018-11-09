@@ -1,4 +1,5 @@
-# rastreando-o-busao
+<h1>RJBus</h1><br/>
+<img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/ic_rjbus.png" style="max-width:50%;"/>   
 Aplicação de testes de geoposicionamento, que usa o serviço  REST para localizar visualizar os veiculos ativos em determinada linha de onibus. Ela utiliza os dados abertos de transporte público do Rio de Janeiro / Brasil.
 
 A documentação do serviço está disponível em:
@@ -8,9 +9,10 @@ http://dadosabertos.rio.rj.gov.br/apitransporte/apresentacao/pdf/documentacao_gp
 <h2>Screens</h2>
 <table>
   <tr>
-    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot1.jpeg" /></td>
-    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot2.jpeg" /></td>
-    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/screenshot3.jpeg" /></td>
+    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/splashrjbus.jpg" /></td>
+    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/listalinhasbusao.jpg" /></td>
+    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/veiculaosdalinha.jpg" /></td>
+    <td><img src="https://github.com/nosphera/rastreando-o-busao/blob/master/screenshots/posicaodoveiculo.jpg" /></td>
   </tr>
 </table>
 
